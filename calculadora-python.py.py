@@ -33,11 +33,41 @@ def percentage():
     except ValueError:
         messagebox.showerror("Erro", "Entrada inválida")
 
+def on_keypress(event):
+    key = event.keysym
+    if key in "0123456789":
+        press(event.char)
+    elif key in ["plus", "equal"]:
+        press("+")
+    elif key == "minus":
+        press("-")
+    elif key in ["asterisk", "KP_Multiply"]:
+        press("*")
+    elif key in ["slash", "KP_Divide"]:
+        press("/")
+    elif key == "Return":
+        calculate()
+    elif key == "BackSpace":
+        backspace()
+    elif key == "Escape":
+        clear()
+    elif key == "percent":
+        percentage()
+    elif key == "comma":
+        press(".")
+    elif key == "KP_Enter":
+        calculate()
+    elif key == "KP_Subtract":
+        press("-")
+    elif key == "KP_Add":
+        press("+")
+
 root = tk.Tk()
 root.title("Calculadora")
 root.geometry("320x450")
 root.resizable(False, False)
 root.configure(bg="#2E2E2E")
+root.bind("<KeyPress>", on_keypress)
 
 entry_text = tk.StringVar()
 previous_value = tk.StringVar()
@@ -79,4 +109,3 @@ def create_buttons():
 
 create_buttons()
 root.mainloop()
-
